@@ -26,7 +26,7 @@ namespace Mundial2022
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<Models.MundialClubesContext>(options =>
+            services.AddDbContext<Entidades.MundialClubesContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Devconnection")));
         }
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Mundial2022.Models;
+using Mundial2022.Entidades;
 
 namespace Mundial2022.Controllers
 {
