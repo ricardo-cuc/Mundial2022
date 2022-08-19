@@ -1,0 +1,39 @@
+﻿@model Mundial2022.Models.Equipo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Equipo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CEquipo" />
+            <div class="form-group">
+                <label asp-for="NEquipo" class="control-label"></label>
+                <input asp-for="NEquipo" class="form-control" />
+                <span asp-validation-for="NEquipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ENombre" class="control-label"></label>
+                <input asp-for="ENombre" class="form-control" />
+                <span asp-validation-for="ENombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

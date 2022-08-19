@@ -1,0 +1,30 @@
+﻿@model Mundial2022.Models.Campeonato
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Campeonato</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NCampeonato)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NCampeonato)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QPartidos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QPartidos)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CCampeonato">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
