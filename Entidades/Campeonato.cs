@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Mundial2022.Models
+namespace Mundial2022.Entidades
 {
     public partial class Campeonato
     {

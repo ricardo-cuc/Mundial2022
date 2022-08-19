@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Mundial2022.Models;
+using Mundial2022.Entidades;
 using Microsoft.AspNetCore.Http;
+using System;
 
 namespace Mundial2022.Controllers
 {
@@ -50,34 +51,38 @@ namespace Mundial2022.Controllers
         }
         public IActionResult Login()
         {
+            ViewBag.Error = "";
             return View();
         }
         [HttpPost]
         public ActionResult Login(string _UCorreo, string _UPassword)
         {
+            Usuario oUsuario = new Usuario();
             try
             {
-                ValidarUsuario validar = ValidarUsuario();
-                Usuario db = new Usuario();
-                Usuario oUsuario = (from d in db.Usuarios
-                                where d.UCorreo == _UCorreo.Trim() && d.UPassword == _UPassword.Trim()
-                                select d).FirstOrDefault();
-                if (!ValidarUsuario())
+                 oUsuario =  _context.Usuarios.Where(u => u.UCorreo == _UCorreo && u.UPassword== _UPassword).FirstOrDefault();
+
+
+                if (oUsuario!=null)
+                {
+                    //Session["Usuario"] = oUsuario;
+                    return RedirectToAction("Index", "Usuarios");
+
+                }
+                else
                 {
                     ViewBag.Error = "Usuario o contraseña no validos";
                     return View();
                 }
-                HttpContext.Session.SetString(_UCorreo,oUsuario.UCorreo);
-                return RedirectToAction("Usuario", "Details");
+                //HttpContext.Session.SetString(_UCorreo,oUsuario.UCorreo);
+
             }
-            catch
+            catch(Exception ex)
             {
-
+                string strEx = ex.ToString();
+                return RedirectToAction("Details", "Usuarios");
 
             }
-            return RedirectToAction("Usuario", "Details");
-
-
         }
 
 
@@ -183,10 +188,10 @@ namespace Mundial2022.Controllers
         {
             return _context.Usuarios.Any(e => e.UCodigo == id);
         }
-        private bool ValidarUsuario (string _Ucorreo, string _UPassword)
-        {
+        //private bool ValidarUsuario (string _Ucorreo, string _UPassword)
+        //{
         
-            return _context.Usuarios.Any(b => b.UCorreo == _Ucorreo && b.UPassword == _UPassword);
-        }
+        //    return _context.Usuarios.Any(b => b.UCorreo == _Ucorreo && b.UPassword == _UPassword);
+        //}
     }
 }

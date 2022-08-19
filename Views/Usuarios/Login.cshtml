@@ -14,13 +14,16 @@
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<link href="~/css/Login.css" rel="stylesheet"/>
 </head>
+
 <body>
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
 				<h3>lucalza Quiniela </h3>
-
+				@if(string.IsNullOrEmpty(ViewBag.Error)){
+					<span class="text-danger"clas>@ViewBag.Error</span>
+				}
 			</div>
 			<div class="card-body">
 				<form asp-controller="Usuarios" asp-action="Login" method="post">

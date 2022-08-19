@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Mundial2022.Models
+namespace Mundial2022.Entidades
 {
     public partial class MundialClubesContext : DbContext
     {
@@ -16,6 +16,7 @@ namespace Mundial2022.Models
             : base(options)
         {
         }
+
         public virtual DbSet<AjustesPuntaje> AjustesPuntajes { get; set; }
         public virtual DbSet<ApuestasUsuario> ApuestasUsuarios { get; set; }
         public virtual DbSet<Campeonato> Campeonatos { get; set; }
@@ -32,8 +33,7 @@ namespace Mundial2022.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=LGTAUXIT0656\\SQLEXPRESS; Database=MundialClubes; Trusted_Connection=True;TrustServerCertificate=True;;MultipleactiveResultSets=true");
+                optionsBuilder.UseSqlServer("name=DevConnection");
             }
         }
 
@@ -44,7 +44,7 @@ namespace Mundial2022.Models
             modelBuilder.Entity<AjustesPuntaje>(entity =>
             {
                 entity.HasKey(e => e.AId)
-                    .HasName("PK__AJUSTES___71AC6D413FCABA68");
+                    .HasName("PK__AJUSTES___71AC6D41E5C82299");
 
                 entity.ToTable("AJUSTES_PUNTAJE");
 
@@ -60,7 +60,7 @@ namespace Mundial2022.Models
             modelBuilder.Entity<ApuestasUsuario>(entity =>
             {
                 entity.HasKey(e => new { e.NroApuetas, e.NroPartido, e.UCodigo })
-                    .HasName("PK__APUESTAS__EF7BBDE258236735");
+                    .HasName("PK__APUESTAS__EF7BBDE27E7DEF11");
 
                 entity.ToTable("APUESTAS_USUARIOS");
 
@@ -90,19 +90,19 @@ namespace Mundial2022.Models
                     .WithMany(p => p.ApuestasUsuarios)
                     .HasForeignKey(d => d.NroPartido)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__APUESTAS___NRO_P__71D1E811");
+                    .HasConstraintName("FK__APUESTAS___NRO_P__37A5467C");
 
                 entity.HasOne(d => d.UCodigoNavigation)
                     .WithMany(p => p.ApuestasUsuarios)
                     .HasForeignKey(d => d.UCodigo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__APUESTAS___U_COD__72C60C4A");
+                    .HasConstraintName("FK__APUESTAS___U_COD__38996AB5");
             });
 
             modelBuilder.Entity<Campeonato>(entity =>
             {
                 entity.HasKey(e => e.CCampeonato)
-                    .HasName("PK__CAMPEONA__0F26C2A871F5B10B");
+                    .HasName("PK__CAMPEONA__0F26C2A815FF9A47");
 
                 entity.ToTable("CAMPEONATO");
 
@@ -123,7 +123,7 @@ namespace Mundial2022.Models
             modelBuilder.Entity<Equipo>(entity =>
             {
                 entity.HasKey(e => e.CEquipo)
-                    .HasName("PK__EQUIPO__93A80846DC0267FE");
+                    .HasName("PK__EQUIPO__93A80846780A110A");
 
                 entity.ToTable("EQUIPO");
 
@@ -147,7 +147,7 @@ namespace Mundial2022.Models
             modelBuilder.Entity<EquiposCampeonato>(entity =>
             {
                 entity.HasKey(e => new { e.ECId, e.CEquipo, e.CCampeonato })
-                    .HasName("PK__EQUIPOS___B5F0BEEFC160CAC2");
+                    .HasName("PK__EQUIPOS___B5F0BEEFDCC47046");
 
                 entity.ToTable("EQUIPOS_CAMPEONATO");
 
@@ -171,19 +171,19 @@ namespace Mundial2022.Models
                     .WithMany(p => p.EquiposCampeonatos)
                     .HasForeignKey(d => d.CCampeonato)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EQUIPOS_C__C_CAM__01142BA1");
+                    .HasConstraintName("FK__EQUIPOS_C__C_CAM__398D8EEE");
 
                 entity.HasOne(d => d.CEquipoNavigation)
                     .WithMany(p => p.EquiposCampeonatos)
                     .HasForeignKey(d => d.CEquipo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EQUIPOS_C__C_EQU__00200768");
+                    .HasConstraintName("FK__EQUIPOS_C__C_EQU__3A81B327");
             });
 
             modelBuilder.Entity<Estadio>(entity =>
             {
                 entity.HasKey(e => e.CEstadio)
-                    .HasName("PK__ESTADIO__45173E5BE3264F26");
+                    .HasName("PK__ESTADIO__45173E5BDD30A711");
 
                 entity.ToTable("ESTADIO");
 
@@ -202,7 +202,7 @@ namespace Mundial2022.Models
             modelBuilder.Entity<JugEqCamp>(entity =>
             {
                 entity.HasKey(e => new { e.CJugador, e.CCampeonato })
-                    .HasName("PK__JUG_EQ_C__473F0F2ACEB9236F");
+                    .HasName("PK__JUG_EQ_C__473F0F2A39F92F5D");
 
                 entity.ToTable("JUG_EQ_CAMP");
 
@@ -228,24 +228,24 @@ namespace Mundial2022.Models
                     .WithMany(p => p.JugEqCamps)
                     .HasForeignKey(d => d.CCampeonato)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__JUG_EQ_CA__C_CAM__3D5E1FD2");
+                    .HasConstraintName("FK__JUG_EQ_CA__C_CAM__3B75D760");
 
                 entity.HasOne(d => d.CEquipoNavigation)
                     .WithMany(p => p.JugEqCamps)
                     .HasForeignKey(d => d.CEquipo)
-                    .HasConstraintName("FK__JUG_EQ_CA__C_EQU__3E52440B");
+                    .HasConstraintName("FK__JUG_EQ_CA__C_EQU__3C69FB99");
 
                 entity.HasOne(d => d.CJugadorNavigation)
                     .WithMany(p => p.JugEqCamps)
                     .HasForeignKey(d => d.CJugador)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__JUG_EQ_CA__C_JUG__3C69FB99");
+                    .HasConstraintName("FK__JUG_EQ_CA__C_JUG__3D5E1FD2");
             });
 
             modelBuilder.Entity<JugPartido>(entity =>
             {
                 entity.HasKey(e => new { e.CJugador, e.NroPartido })
-                    .HasName("PK__JUG_PART__FE1852F5015531DD");
+                    .HasName("PK__JUG_PART__FE1852F59CB83388");
 
                 entity.ToTable("JUG_PARTIDO");
 
@@ -286,19 +286,19 @@ namespace Mundial2022.Models
                     .WithMany(p => p.JugPartidos)
                     .HasForeignKey(d => d.CJugador)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__JUG_PARTI__C_JUG__48CFD27E");
+                    .HasConstraintName("FK__JUG_PARTI__C_JUG__3E52440B");
 
                 entity.HasOne(d => d.NroPartidoNavigation)
                     .WithMany(p => p.JugPartidos)
                     .HasForeignKey(d => d.NroPartido)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__JUG_PARTI__NRO_P__49C3F6B7");
+                    .HasConstraintName("FK__JUG_PARTI__NRO_P__3F466844");
             });
 
             modelBuilder.Entity<Jugador>(entity =>
             {
                 entity.HasKey(e => e.CJugador)
-                    .HasName("PK__JUGADOR__D7CD63003F3918F9");
+                    .HasName("PK__JUGADOR__D7CD63001DBBF6CA");
 
                 entity.ToTable("JUGADOR");
 
@@ -321,7 +321,7 @@ namespace Mundial2022.Models
             modelBuilder.Entity<Partido>(entity =>
             {
                 entity.HasKey(e => e.NroPartido)
-                    .HasName("PK__PARTIDO__9D531F533A521848");
+                    .HasName("PK__PARTIDO__9D531F53021D8BA8");
 
                 entity.ToTable("PARTIDO");
 
@@ -384,17 +384,17 @@ namespace Mundial2022.Models
                 entity.HasOne(d => d.CCampeonatoNavigation)
                     .WithMany(p => p.Partidos)
                     .HasForeignKey(d => d.CCampeonato)
-                    .HasConstraintName("FK__PARTIDO__C_CAMPE__45F365D3");
+                    .HasConstraintName("FK__PARTIDO__C_CAMPE__403A8C7D");
 
                 entity.HasOne(d => d.CEquipo1Navigation)
                     .WithMany(p => p.PartidoCEquipo1Navigations)
                     .HasForeignKey(d => d.CEquipo1)
-                    .HasConstraintName("FK__PARTIDO__C_EQUIP__440B1D61");
+                    .HasConstraintName("FK__PARTIDO__C_EQUIP__412EB0B6");
 
                 entity.HasOne(d => d.CEquipo2Navigation)
                     .WithMany(p => p.PartidoCEquipo2Navigations)
                     .HasForeignKey(d => d.CEquipo2)
-                    .HasConstraintName("FK__PARTIDO__C_EQUIP__44FF419A");
+                    .HasConstraintName("FK__PARTIDO__C_EQUIP__4222D4EF");
 
                 entity.HasOne(d => d.CEstadioPartNavigation)
                     .WithMany(p => p.Partidos)
@@ -405,7 +405,7 @@ namespace Mundial2022.Models
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.UCodigo)
-                    .HasName("PK__USUARIOS__E9817A83558EE488");
+                    .HasName("PK__USUARIOS__E9817A8388322270");
 
                 entity.ToTable("USUARIOS");
 
@@ -431,7 +431,8 @@ namespace Mundial2022.Models
                     .HasColumnName("U_NOMBRE");
 
                 entity.Property(e => e.UPassword)
-                    .HasColumnType("text")
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
                     .HasColumnName("U_PASSWORD");
 
                 entity.Property(e => e.UPuntosTotales).HasColumnName("U_PUNTOS_TOTALES");
@@ -440,12 +441,6 @@ namespace Mundial2022.Models
             OnModelCreatingPartial(modelBuilder);
         }
 
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public static implicit operator string(MundialClubesContext v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

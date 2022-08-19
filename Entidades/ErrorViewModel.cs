@@ -1,6 +1,7 @@
+﻿
 using System;
 
-namespace Mundial2022.Models
+namespace Mundial2022.Entidades
 {
     public class ErrorViewModel
     {

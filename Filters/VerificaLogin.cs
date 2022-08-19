@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Mundial2022.Models;
+using Mundial2022.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
