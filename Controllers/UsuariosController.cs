@@ -1,29 +1,31 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using System.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Session;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mundial2022.Entidades;
-using Microsoft.AspNetCore.Http;
+using Mundial2022.Servicios;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Mundial2022.Controllers
 {
     public class UsuariosController : Controller
     {
         private readonly MundialClubesContext _context;
+        private readonly IRepositorioUsuarios repositorioUsuarios;
 
-        public UsuariosController(MundialClubesContext context)
+        public UsuariosController(MundialClubesContext context,
+               IRepositorioUsuarios repositorioUsuarios
+            )
         {
             _context = context;
+            this.repositorioUsuarios = repositorioUsuarios;
         }
 
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuarios.ToListAsync());
+            return View();
         }
 
         // GET: Usuarios/Details/5
@@ -34,14 +36,14 @@ namespace Mundial2022.Controllers
                 return NotFound();
             }
 
-                var usuario = await _context.Usuarios
-                    .FirstOrDefaultAsync(m => m.UCodigo == id);
-                if (usuario == null)
-                {
-                    return NotFound();
-                }
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(m => m.UCodigo == id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
 
-                return View(usuario);
+            return View(usuario);
         }
 
         // GET: Usuarios/Create
@@ -60,24 +62,18 @@ namespace Mundial2022.Controllers
             Usuario oUsuario = new Usuario();
             try
             {
-                 oUsuario =  _context.Usuarios.Where(u => u.UCorreo == _UCorreo && u.UPassword== _UPassword).FirstOrDefault();
-
-
-                if (oUsuario!=null)
+                var existeUsuario = repositorioUsuarios.ObtenerUsuario(_UCorreo, _UPassword);
+                if (existeUsuario)
                 {
-                    //Session["Usuario"] = oUsuario;
+                    ViewBag.nombreUsuario = "PruebaNOmbre";
                     return RedirectToAction("Index", "Usuarios");
-
                 }
                 else
                 {
-                    ViewBag.Error = "Usuario o contraseña no validos";
                     return View();
                 }
-                //HttpContext.Session.SetString(_UCorreo,oUsuario.UCorreo);
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string strEx = ex.ToString();
                 return RedirectToAction("Details", "Usuarios");
@@ -86,7 +82,11 @@ namespace Mundial2022.Controllers
         }
 
 
-
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            return RedirectToAction("Login", "Usuarios");
+        }
 
         // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -190,7 +190,7 @@ namespace Mundial2022.Controllers
         }
         //private bool ValidarUsuario (string _Ucorreo, string _UPassword)
         //{
-        
+
         //    return _context.Usuarios.Any(b => b.UCorreo == _Ucorreo && b.UPassword == _UPassword);
         //}
     }
