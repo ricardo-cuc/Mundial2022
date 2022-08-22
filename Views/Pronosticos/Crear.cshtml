@@ -1,0 +1,121 @@
+﻿@model Mundial2022.Modelos.PronosticoCreacionViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+<form asp-action="Crear" method="POST">
+    <div class="row g-3">
+        <div class="row g-3">
+            <div class="col mr-2">
+                <label asp-for="IdFase" class="control-label">Seleccione la fase</label>
+                <select asp-for="IdFase" asp-items="Model.FasesSelect" class="form-control"></select>
+                <span asp-validation-for="IdFase" class="text-danger  mb-3"></span>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col mr-2">
+                <label asp-for="IdGrupo" class="control-label">Seleccione el grupo</label>
+                <select asp-for="IdGrupo" asp-items="Model.GruposSelect" class="form-control"></select>
+                <span asp-validation-for="IdGrupo" class="text-danger  mb-3"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+    <table class="table" name="partidos">
+        <thead>
+            <tr class="justify-content-around">
+                <th>
+                    Partido
+                </th>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Primer Equipo
+                </th>
+                <th>
+                    Segundo Equipo
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var partido in Model.partidos)
+            {
+                <tr>
+                    <input readonly hidden class="form-control" type="text" name="CEquipo1" value="@partido.CEquipo1">
+                    <input readonly hidden class="form-control" type="text" name="CEquipo2" value="@partido.CEquipo2">
+
+
+
+                    <td class="col-1">
+                        <input readonly class="form-control" type="text" name="NroPartido" value="@partido.NroPartido">
+                    </td>
+
+                    <td name="fecha" class="col-2">
+                        <p>@partido.Fecha</p>
+                    </td>
+
+                    <td name="primerEquipo" class="col-4 justify-content-md-start">
+                        <div class="row mb-3 justify-content-around">
+                            <span class="d-none d-md-block">
+                                <img src="@partido.CEquipo1Navigation.UrlBandera"
+                                 width="40"
+                                 height="30"
+                                 alt="Catar" />
+                            </span>
+                            <p class="col-5 flex-row">@partido.CEquipo1Navigation.ENombre</p>
+                            <select name="QGolesE1" class="custom-select form-control col-2" required="required">
+                                <option value="0" selected="selected">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                            </select>
+                        </div>
+                    </td>
+
+                    <td name="segundoEquipo" class="col-4 justify-content-md-start">
+                        <div class="row mb-3 justify-content-around">
+                            <span class="d-none d-md-block">
+                                <img src="@partido.CEquipo2Navigation.UrlBandera"
+                                 width="40"
+                                 height="30"
+                                 alt="Ecuador" />
+                            </span>
+                            <p class="col-5 flex-row">@partido.CEquipo2Navigation.ENombre</p>
+                            <select name="QGolesE2" class="custom-select form-control col-2" required="required">
+                                <option value="0" selected="selected">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <button class="btn btn-primary mt-3">Enviar</button>
+        <a class="btn btn-info mt-3" asp-action="Index" >Cancelar</a>
+    </div>
+</form>

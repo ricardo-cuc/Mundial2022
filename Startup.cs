@@ -1,14 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Mundial2022.Entidades;
+using Mundial2022.Servicios;
 
 namespace Mundial2022
 {
@@ -26,7 +23,8 @@ namespace Mundial2022
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<Entidades.MundialClubesContext>(options =>
+            services.AddTransient<IRepositorioUsuarios, RepositorioUsuarios>();
+            services.AddDbContext<MundialClubesContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Devconnection")));
         }
 
@@ -47,7 +45,11 @@ namespace Mundial2022
             app.UseStaticFiles();
 
             app.UseRouting();
-            
+
+            //<[Fernando Ajset] Configuración para uso de Cookies en aplicación>
+            app.UseAuthentication();
+            //<[Fernando Ajset] Configuración para uso de Cookies en aplicación>
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

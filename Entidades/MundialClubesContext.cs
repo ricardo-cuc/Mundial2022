@@ -64,6 +64,10 @@ namespace Mundial2022.Entidades
 
                 entity.ToTable("APUESTAS_USUARIOS");
 
+                entity.HasIndex(e => e.NroPartido, "IX_APUESTAS_USUARIOS_NRO_PARTIDO");
+
+                entity.HasIndex(e => e.UCodigo, "IX_APUESTAS_USUARIOS_U_CODIGO");
+
                 entity.Property(e => e.NroApuetas)
                     .HasMaxLength(2)
                     .IsUnicode(false)
@@ -142,6 +146,10 @@ namespace Mundial2022.Entidades
                     .HasMaxLength(220)
                     .IsUnicode(false)
                     .HasColumnName("N_EQUIPO");
+
+                entity.Property(e => e.UrlBandera)
+                    .IsUnicode(false)
+                    .HasColumnName("URL_BANDERA");
             });
 
             modelBuilder.Entity<EquiposCampeonato>(entity =>
@@ -150,6 +158,10 @@ namespace Mundial2022.Entidades
                     .HasName("PK__EQUIPOS___B5F0BEEFDCC47046");
 
                 entity.ToTable("EQUIPOS_CAMPEONATO");
+
+                entity.HasIndex(e => e.CCampeonato, "IX_EQUIPOS_CAMPEONATO_C_CAMPEONATO");
+
+                entity.HasIndex(e => e.CEquipo, "IX_EQUIPOS_CAMPEONATO_C_EQUIPO");
 
                 entity.Property(e => e.ECId).HasColumnName("E_C_ID");
 
@@ -206,6 +218,10 @@ namespace Mundial2022.Entidades
 
                 entity.ToTable("JUG_EQ_CAMP");
 
+                entity.HasIndex(e => e.CCampeonato, "IX_JUG_EQ_CAMP_C_CAMPEONATO");
+
+                entity.HasIndex(e => e.CEquipo, "IX_JUG_EQ_CAMP_C_EQUIPO");
+
                 entity.Property(e => e.CJugador)
                     .HasMaxLength(3)
                     .IsUnicode(false)
@@ -248,6 +264,8 @@ namespace Mundial2022.Entidades
                     .HasName("PK__JUG_PART__FE1852F59CB83388");
 
                 entity.ToTable("JUG_PARTIDO");
+
+                entity.HasIndex(e => e.NroPartido, "IX_JUG_PARTIDO_NRO_PARTIDO");
 
                 entity.Property(e => e.CJugador)
                     .HasMaxLength(3)
@@ -325,6 +343,14 @@ namespace Mundial2022.Entidades
 
                 entity.ToTable("PARTIDO");
 
+                entity.HasIndex(e => e.CCampeonato, "IX_PARTIDO_C_CAMPEONATO");
+
+                entity.HasIndex(e => e.CEquipo1, "IX_PARTIDO_C_EQUIPO_1");
+
+                entity.HasIndex(e => e.CEquipo2, "IX_PARTIDO_C_EQUIPO_2");
+
+                entity.HasIndex(e => e.CEstadioPart, "IX_PARTIDO_C_ESTADIO_PART");
+
                 entity.Property(e => e.NroPartido)
                     .ValueGeneratedNever()
                     .HasColumnName("NRO_PARTIDO");
@@ -361,6 +387,10 @@ namespace Mundial2022.Entidades
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("E_PARTIDO");
+
+                entity.Property(e => e.Fecha)
+                    .HasColumnType("date")
+                    .HasColumnName("FECHA");
 
                 entity.Property(e => e.NArbitro)
                     .HasMaxLength(220)
