@@ -11,23 +11,26 @@ namespace Mundial2022.Servicios
 {
     public interface IRepositorioUsuarios
     {
-        bool ObtenerUsuario(string nombreUsuario, string passUsuario);
+        public bool ExisteUsuario(string nombreUsuario, string passUsuario);
+        Usuario ObtenerUsuario(string nombreUsuario);
     }
     public class RepositorioUsuarios : IRepositorioUsuarios
     {
-        private readonly IConfiguration configuration;
-        private readonly string URLApi;
         private readonly MundialClubesContext _context;
-
 
         public RepositorioUsuarios(MundialClubesContext context)
         {
             _context = context;
         }
 
-        public bool ObtenerUsuario(string nombreUsuario, string passUsuario)
+        public bool ExisteUsuario(string nombreUsuario, string passUsuario)
         {
-            return  _context.Usuarios.Any(u => u.UCorreo == nombreUsuario && u.UPassword== passUsuario);
+            return _context.Usuarios.Any(u => u.UCorreo == nombreUsuario && u.UPassword == passUsuario);
+        }
+
+        public Usuario ObtenerUsuario(string nombreUsuario)
+        {
+            return _context.Usuarios.Where(u => u.UCorreo == nombreUsuario).FirstOrDefault();
         }
     }
 }

@@ -1,0 +1,124 @@
+﻿@model Mundial2022.Modelos.PronosticoCreacionViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+<form asp-action="Create" method="POST">
+    <div class="row g-3">
+        <div class="row g-3">
+            <div class="col mr-2">
+                <label asp-for="IdFase" class="control-label">Seleccione la fase</label>
+                <select asp-for="IdFase" asp-items="Model.FasesSelect" class="form-control"></select>
+                <span asp-validation-for="IdFase" class="text-danger  mb-3"></span>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col mr-2">
+                <label asp-for="IdGrupo" class="control-label">Seleccione el grupo</label>
+                <select asp-for="IdGrupo" asp-items="Model.GruposSelect" class="form-control"></select>
+                <span asp-validation-for="IdGrupo" class="text-danger  mb-3"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+    <table class="table" name="partidos">
+        <thead>
+            <tr class="justify-content-around">
+                <th>
+                    Numero de partido
+                </th>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Primer Equipo
+                </th>
+                <th>
+                    Segundo Equipo
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td name="numero" class="col-1">
+                    <p>1</p>
+                </td>
+
+                <td name="fecha" class="col-2">
+                    <p>01-01-2022</p>
+                </td>
+
+                <td name="primerEquipo" class="col-4 justify-content-md-start">
+                    <div class="row mb-3 justify-content-around">
+                        <span class="d-none d-md-block">
+                            <img src="https://flagcdn.com/40x30/qa.png"
+                                 srcset="https://flagcdn.com/80x60/qa.png 2x,
+                         https://flagcdn.com/120x90/qa.png 3x"
+                                 width="40"
+                                 height="30"
+                                 alt="Catar" />
+                        </span>
+                        <p class="col-5 flex-row">Catar</p>
+                        <select class="custom-select form-control col-2" required="required">
+                            <option value="">= goles en casa</option>
+                            <option value="0" selected="selected">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                        </select>
+                    </div>
+                </td>
+
+                <td name="segundoEquipo" class="col-4 justify-content-md-start">
+                    <div class="row mb-3 justify-content-around">
+                        <span class="d-none d-md-block">
+                            <img src="https://flagcdn.com/40x30/ec.png"
+                                 srcset="https://flagcdn.com/80x60/ec.png 2x,
+                         https://flagcdn.com/120x90/ec.png 3x"
+                                 width="40"
+                                 height="30"
+                                 alt="Ecuador" />
+                        </span>
+                        <p class="col-5 flex-row">Ecuador</p>
+                        <select class="custom-select form-control col-2" required="required">
+                            <option value="">= goles en casa</option>
+                            <option value="0" selected="selected">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+    <div>
+        <button class="btn btn-primary mt-3">Enviar</button>
+        <a class="btn btn-info mt-3" asp-action="Index">Cancelar</a>
+    </div>
+</form>

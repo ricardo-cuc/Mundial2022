@@ -22,10 +22,41 @@ namespace Mundial2022.Controllers
             this.repositorioUsuarios = repositorioUsuarios;
         }
 
-        // GET: Usuarios
-        public async Task<IActionResult> Index()
+        // Metódo que llama a la vista vacia para realizar Login de un usuario
+        public IActionResult Login()
         {
+            ViewBag.Error = "";
             return View();
+        }
+
+        // Método que autentica si un usuario existe y sus credenciales son validas
+        [HttpPost]
+        public ActionResult Login(string _UCorreo, string _UPassword)
+        {
+            Usuario usuario = new Usuario();
+            try
+            {
+                var existeUsuario = repositorioUsuarios.ExisteUsuario(_UCorreo, _UPassword);
+                if (existeUsuario)
+                {
+                    usuario = repositorioUsuarios.ObtenerUsuario(_UCorreo);
+                    return RedirectToAction("Index", "Usuarios", usuario);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                string strEx = ex.ToString();
+                return RedirectToAction("Details", "Usuarios");
+            }
+        }
+        // GET: Usuarios
+        public IActionResult Index(Usuario usuario)
+        {
+            return View(usuario);
         }
 
         // GET: Usuarios/Details/5
@@ -51,36 +82,6 @@ namespace Mundial2022.Controllers
         {
             return View();
         }
-        public IActionResult Login()
-        {
-            ViewBag.Error = "";
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(string _UCorreo, string _UPassword)
-        {
-            Usuario oUsuario = new Usuario();
-            try
-            {
-                var existeUsuario = repositorioUsuarios.ObtenerUsuario(_UCorreo, _UPassword);
-                if (existeUsuario)
-                {
-                    ViewBag.nombreUsuario = "PruebaNOmbre";
-                    return RedirectToAction("Index", "Usuarios");
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            catch (Exception ex)
-            {
-                string strEx = ex.ToString();
-                return RedirectToAction("Details", "Usuarios");
-
-            }
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> LogOut()
