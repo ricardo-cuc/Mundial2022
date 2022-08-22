@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<form asp-action="Create" method="POST">
+<form asp-action="Crear" method="POST">
     <div class="row g-3">
         <div class="row g-3">
             <div class="col mr-2">
@@ -46,8 +46,13 @@
             @foreach (var partido in Model.partidos)
             {
                 <tr>
-                    <td name="numero" class="col-1">
-                        <p>@partido.NroPartido</p>
+                    <input readonly hidden class="form-control" type="text" name="CEquipo1" value="@partido.CEquipo1">
+                    <input readonly hidden class="form-control" type="text" name="CEquipo2" value="@partido.CEquipo2">
+
+
+
+                    <td class="col-1">
+                        <input readonly class="form-control" type="text" name="NroPartido" value="@partido.NroPartido">
                     </td>
 
                     <td name="fecha" class="col-2">
@@ -63,7 +68,7 @@
                                  alt="Catar" />
                             </span>
                             <p class="col-5 flex-row">@partido.CEquipo1Navigation.ENombre</p>
-                            <select class="custom-select form-control col-2" required="required">
+                            <select name="QGolesE1" class="custom-select form-control col-2" required="required">
                                 <option value="0" selected="selected">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -89,7 +94,7 @@
                                  alt="Ecuador" />
                             </span>
                             <p class="col-5 flex-row">@partido.CEquipo2Navigation.ENombre</p>
-                            <select class="custom-select form-control col-2" required="required">
+                            <select name="QGolesE2" class="custom-select form-control col-2" required="required">
                                 <option value="0" selected="selected">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -109,13 +114,8 @@
             }
         </tbody>
     </table>
-
-
-
-
-
     <div>
         <button class="btn btn-primary mt-3">Enviar</button>
-        <a class="btn btn-info mt-3" asp-action="Index">Cancelar</a>
+        <a class="btn btn-info mt-3" asp-action="Index" >Cancelar</a>
     </div>
 </form>
