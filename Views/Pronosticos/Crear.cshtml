@@ -29,7 +29,7 @@
         <thead>
             <tr class="justify-content-around">
                 <th>
-                    Numero de partido
+                    Partido
                 </th>
                 <th>
                     Fecha
@@ -43,73 +43,70 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td name="numero" class="col-1">
-                    <p>1</p>
-                </td>
+            @foreach (var partido in Model.partidos)
+            {
+                <tr>
+                    <td name="numero" class="col-1">
+                        <p>@partido.NroPartido</p>
+                    </td>
 
-                <td name="fecha" class="col-2">
-                    <p>01-01-2022</p>
-                </td>
+                    <td name="fecha" class="col-2">
+                        <p>@partido.Fecha</p>
+                    </td>
 
-                <td name="primerEquipo" class="col-4 justify-content-md-start">
-                    <div class="row mb-3 justify-content-around">
-                        <span class="d-none d-md-block">
-                            <img src="https://flagcdn.com/40x30/qa.png"
-                                 srcset="https://flagcdn.com/80x60/qa.png 2x,
-                         https://flagcdn.com/120x90/qa.png 3x"
+                    <td name="primerEquipo" class="col-4 justify-content-md-start">
+                        <div class="row mb-3 justify-content-around">
+                            <span class="d-none d-md-block">
+                                <img src="@partido.CEquipo1Navigation.UrlBandera"
                                  width="40"
                                  height="30"
                                  alt="Catar" />
-                        </span>
-                        <p class="col-5 flex-row">Catar</p>
-                        <select class="custom-select form-control col-2" required="required">
-                            <option value="">= goles en casa</option>
-                            <option value="0" selected="selected">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                    </div>
-                </td>
+                            </span>
+                            <p class="col-5 flex-row">@partido.CEquipo1Navigation.ENombre</p>
+                            <select class="custom-select form-control col-2" required="required">
+                                <option value="0" selected="selected">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                            </select>
+                        </div>
+                    </td>
 
-                <td name="segundoEquipo" class="col-4 justify-content-md-start">
-                    <div class="row mb-3 justify-content-around">
-                        <span class="d-none d-md-block">
-                            <img src="https://flagcdn.com/40x30/ec.png"
-                                 srcset="https://flagcdn.com/80x60/ec.png 2x,
-                         https://flagcdn.com/120x90/ec.png 3x"
+                    <td name="segundoEquipo" class="col-4 justify-content-md-start">
+                        <div class="row mb-3 justify-content-around">
+                            <span class="d-none d-md-block">
+                                <img src="@partido.CEquipo2Navigation.UrlBandera"
                                  width="40"
                                  height="30"
                                  alt="Ecuador" />
-                        </span>
-                        <p class="col-5 flex-row">Ecuador</p>
-                        <select class="custom-select form-control col-2" required="required">
-                            <option value="">= goles en casa</option>
-                            <option value="0" selected="selected">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
+                            </span>
+                            <p class="col-5 flex-row">@partido.CEquipo2Navigation.ENombre</p>
+                            <select class="custom-select form-control col-2" required="required">
+                                <option value="0" selected="selected">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 

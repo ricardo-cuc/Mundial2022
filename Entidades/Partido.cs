@@ -25,6 +25,7 @@ namespace Mundial2022.Entidades
         public int? QGolesE2 { get; set; }
         public string NArbitro { get; set; }
         public string EPartido { get; set; }
+        public DateTime? Fecha { get; set; }
 
         public virtual Campeonato CCampeonatoNavigation { get; set; }
         public virtual Equipo CEquipo1Navigation { get; set; }
