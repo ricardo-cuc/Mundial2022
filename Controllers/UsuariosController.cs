@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mundial2022.Entidades;
+using Mundial2022.Modelos;
 using Mundial2022.Servicios;
 using System;
 using System.Linq;
@@ -40,7 +41,10 @@ namespace Mundial2022.Controllers
                 if (existeUsuario)
                 {
                     usuario = repositorioUsuarios.ObtenerUsuario(_UCorreo);
-                    return RedirectToAction("Index", "Usuarios", usuario);
+                    UsuarioLogin usuarioLogin = new UsuarioLogin();
+                    usuarioLogin.Id = int.Parse(usuario.UCodigo);
+                    usuarioLogin.UNombre = usuario.UNombre;
+                    return RedirectToAction("Index", "Usuarios", usuarioLogin);
                 }
                 else
                 {
@@ -54,9 +58,11 @@ namespace Mundial2022.Controllers
             }
         }
         // GET: Usuarios
-        public IActionResult Index(Usuario usuario)
+        public IActionResult Index(UsuarioLogin usuarioLogin)
         {
-            return View(usuario);
+            usuarioLogin.ApuestasUsuarios = repositorioUsuarios.ObtenerApuestas(usuarioLogin.Id.ToString());
+
+            return View(usuarioLogin);
         }
 
         // GET: Usuarios/Details/5

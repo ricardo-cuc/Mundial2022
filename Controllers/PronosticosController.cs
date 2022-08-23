@@ -25,9 +25,10 @@ namespace Mundial2022.Controllers
             return View(usuario);
         }
 
-        public IActionResult Crear()
+        public IActionResult Crear(int Id)
         {
             PronosticoCreacionViewModel pronostico = new PronosticoCreacionViewModel();
+            pronostico.UserId = Id;
             pronostico.FasesSelect = pronostico.Fases.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
             pronostico.GruposSelect = pronostico.Grupos.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
             pronostico.partidos = context.Partidos.Include(e => e.CEquipo1Navigation).Include(e => e.CEquipo2Navigation);

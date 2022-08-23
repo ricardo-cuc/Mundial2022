@@ -116,6 +116,6 @@
     </table>
     <div>
         <button class="btn btn-primary mt-3">Enviar</button>
-        <a class="btn btn-info mt-3" asp-action="Index" >Cancelar</a>
+        <a class="btn btn-info mt-3" asp-controller="Usuarios" asp-action="Index" asp-route-id="@Model.UserId">Cancelar</a>
     </div>
 </form>
