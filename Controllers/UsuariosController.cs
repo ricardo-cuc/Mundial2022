@@ -189,10 +189,6 @@ namespace Mundial2022.Controllers
         {
             return _context.Usuarios.Any(e => e.UCodigo == id);
         }
-        //private bool ValidarUsuario (string _Ucorreo, string _UPassword)
-        //{
 
-        //    return _context.Usuarios.Any(b => b.UCorreo == _Ucorreo && b.UPassword == _UPassword);
-        //}
     }
 }
