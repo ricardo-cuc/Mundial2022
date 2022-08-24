@@ -83,5 +83,7 @@ namespace Mundial2022.Modelos
         public IEnumerable<SelectListItem> GruposSelect { get; set; }
 
         public IEnumerable<Partido> partidos = new List<Partido>();
+
+        public int UserId { get; set; }
     }
 }

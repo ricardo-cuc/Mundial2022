@@ -23,6 +23,7 @@ namespace Mundial2022.Entidades
         public virtual DbSet<Equipo> Equipos { get; set; }
         public virtual DbSet<EquiposCampeonato> EquiposCampeonatos { get; set; }
         public virtual DbSet<Estadio> Estadios { get; set; }
+        public virtual DbSet<Fase> Fases { get; set; }
         public virtual DbSet<JugEqCamp> JugEqCamps { get; set; }
         public virtual DbSet<JugPartido> JugPartidos { get; set; }
         public virtual DbSet<Jugador> Jugadors { get; set; }
@@ -63,10 +64,6 @@ namespace Mundial2022.Entidades
                     .HasName("PK__APUESTAS__EF7BBDE27E7DEF11");
 
                 entity.ToTable("APUESTAS_USUARIOS");
-
-                entity.HasIndex(e => e.NroPartido, "IX_APUESTAS_USUARIOS_NRO_PARTIDO");
-
-                entity.HasIndex(e => e.UCodigo, "IX_APUESTAS_USUARIOS_U_CODIGO");
 
                 entity.Property(e => e.NroApuetas)
                     .HasMaxLength(2)
@@ -159,10 +156,6 @@ namespace Mundial2022.Entidades
 
                 entity.ToTable("EQUIPOS_CAMPEONATO");
 
-                entity.HasIndex(e => e.CCampeonato, "IX_EQUIPOS_CAMPEONATO_C_CAMPEONATO");
-
-                entity.HasIndex(e => e.CEquipo, "IX_EQUIPOS_CAMPEONATO_C_EQUIPO");
-
                 entity.Property(e => e.ECId).HasColumnName("E_C_ID");
 
                 entity.Property(e => e.CEquipo)
@@ -211,16 +204,24 @@ namespace Mundial2022.Entidades
                     .HasColumnName("N_ESTADIO");
             });
 
+            modelBuilder.Entity<Fase>(entity =>
+            {
+                entity.ToTable("FASE");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("NOMBRE");
+            });
+
             modelBuilder.Entity<JugEqCamp>(entity =>
             {
                 entity.HasKey(e => new { e.CJugador, e.CCampeonato })
                     .HasName("PK__JUG_EQ_C__473F0F2A39F92F5D");
 
                 entity.ToTable("JUG_EQ_CAMP");
-
-                entity.HasIndex(e => e.CCampeonato, "IX_JUG_EQ_CAMP_C_CAMPEONATO");
-
-                entity.HasIndex(e => e.CEquipo, "IX_JUG_EQ_CAMP_C_EQUIPO");
 
                 entity.Property(e => e.CJugador)
                     .HasMaxLength(3)
@@ -264,8 +265,6 @@ namespace Mundial2022.Entidades
                     .HasName("PK__JUG_PART__FE1852F59CB83388");
 
                 entity.ToTable("JUG_PARTIDO");
-
-                entity.HasIndex(e => e.NroPartido, "IX_JUG_PARTIDO_NRO_PARTIDO");
 
                 entity.Property(e => e.CJugador)
                     .HasMaxLength(3)
@@ -343,14 +342,6 @@ namespace Mundial2022.Entidades
 
                 entity.ToTable("PARTIDO");
 
-                entity.HasIndex(e => e.CCampeonato, "IX_PARTIDO_C_CAMPEONATO");
-
-                entity.HasIndex(e => e.CEquipo1, "IX_PARTIDO_C_EQUIPO_1");
-
-                entity.HasIndex(e => e.CEquipo2, "IX_PARTIDO_C_EQUIPO_2");
-
-                entity.HasIndex(e => e.CEstadioPart, "IX_PARTIDO_C_ESTADIO_PART");
-
                 entity.Property(e => e.NroPartido)
                     .ValueGeneratedNever()
                     .HasColumnName("NRO_PARTIDO");
@@ -379,6 +370,12 @@ namespace Mundial2022.Entidades
                     .HasColumnName("C_ESTADIO_PART")
                     .IsFixedLength(true);
 
+                entity.Property(e => e.CGrupo)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .HasColumnName("C_GRUPO")
+                    .IsFixedLength(true);
+
                 entity.Property(e => e.DPartido)
                     .HasColumnType("date")
                     .HasColumnName("D_PARTIDO");
@@ -389,8 +386,10 @@ namespace Mundial2022.Entidades
                     .HasColumnName("E_PARTIDO");
 
                 entity.Property(e => e.Fecha)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("FECHA");
+
+                entity.Property(e => e.IdFase).HasColumnName("ID_FASE");
 
                 entity.Property(e => e.NArbitro)
                     .HasMaxLength(220)
@@ -430,6 +429,11 @@ namespace Mundial2022.Entidades
                     .WithMany(p => p.Partidos)
                     .HasForeignKey(d => d.CEstadioPart)
                     .HasConstraintName("FK__PARTIDO__C_ESTAD__4316F928");
+
+                entity.HasOne(d => d.IdFaseNavigation)
+                    .WithMany(p => p.Partidos)
+                    .HasForeignKey(d => d.IdFase)
+                    .HasConstraintName("FK__PARTIDO__ID_FASE__49C3F6B7");
             });
 
             modelBuilder.Entity<Usuario>(entity =>
