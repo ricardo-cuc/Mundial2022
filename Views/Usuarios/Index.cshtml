@@ -1,7 +1,7 @@
 ﻿@model Mundial2022.Modelos.UsuarioLogin;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pronostico";
 }
 
 <div>
@@ -43,7 +43,19 @@
             if (apuesta.NroPartidoNavigation.IdFase == 1 && primerRegistroFG == true)
             {
                 <br />
-                <h5>Fase de grupos</h5>
+                <h5>Fase de grupos 1</h5>
+                primerRegistroFG = false;
+            }
+            if (apuesta.NroPartidoNavigation.IdFase == 6 && primerRegistroFG == true)
+            {
+                <br />
+                <h5>Fase de grupos 2</h5>
+                primerRegistroFG = false;
+            }
+            if (apuesta.NroPartidoNavigation.IdFase == 7 && primerRegistroFG == true)
+            {
+                <br />
+                <h5>Fase de grupos 3</h5>
                 primerRegistroFG = false;
             }
             if (apuesta.NroPartidoNavigation.IdFase == 2 && primerRegistroFG == true)
@@ -70,6 +82,7 @@
                 <h5>Final</h5>
                 primerRegistroFG = false;
             }
+
             <tr>
                 <td class="col-1">
                     <input readonly class="form-control" type="text" name="NroPartido" value="@apuesta.NroPartido">
@@ -83,8 +96,8 @@
                     <div class="row mb-3 justify-content-around">
                         <span class="d-none d-md-block">
                             <img src="@apuesta.NroPartidoNavigation.CEquipo1Navigation.UrlBandera"
-                             width="40"
-                             height="30"
+                             width="50"
+                             height="50"
                              alt="Catar" />
                         </span>
                         <p class="col-5 flex-row">@apuesta.NroPartidoNavigation.CEquipo1Navigation.ENombre</p>
@@ -96,8 +109,8 @@
                     <div class="row mb-3 justify-content-around">
                         <span class="d-none d-md-block">
                             <img src="@apuesta.NroPartidoNavigation.CEquipo2Navigation.UrlBandera"
-                             width="40"
-                             height="30"
+                             width="50"
+                             height="50"
                              alt="Ecuador" />
                         </span>
                         <p class="col-5 flex-row">@apuesta.NroPartidoNavigation.CEquipo2Navigation.ENombre</p>

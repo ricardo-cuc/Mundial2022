@@ -34,6 +34,17 @@ namespace Mundial2022.Modelos
                     Id=5,
                     Nombre="Final"
                 },
+                new Fase
+                {
+                    Id=6,
+                    Nombre="Fase de grupos 2"
+                },
+                                new Fase
+                {
+                    Id=7,
+                    Nombre="Fase de grupos 3"
+                }
+
              };
 
         public IEnumerable<Grupo> Grupos = new List<Grupo>() {

@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Mundial2022.Entidades.Equipo>
 
+
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -19,6 +21,10 @@
                 @Html.DisplayNameFor(model => model.ENombre)
             </th>
             <th>
+                <img src="model.UrlBandera"
+                     width="50"
+                     height="50"
+                     alt="Ecuador" />
                 @Html.DisplayNameFor(model => model.UrlBandera)
             </th>
             <th></th>
