@@ -31,9 +31,45 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            bool primerRegistroFG = true;
+            bool primerRegistroOF = true;
+            bool primerRegistroCF = true;
+            bool primerRegistroSF = true;
+            bool primerRegistroF = true;
+        }
         @foreach (var apuesta in Model.ApuestasUsuarios)
         {
-@*            if(apuesta.NroPartidoNavigation)*@
+            if (apuesta.NroPartidoNavigation.IdFase == 1 && primerRegistroFG == true)
+            {
+                <br />
+                <h5>Fase de grupos</h5>
+                primerRegistroFG = false;
+            }
+            if (apuesta.NroPartidoNavigation.IdFase == 2 && primerRegistroFG == true)
+            {
+                <br />
+                <h5>Octavos de final</h5>
+                primerRegistroFG = false;
+            }
+            if (apuesta.NroPartidoNavigation.IdFase == 3 && primerRegistroFG == true)
+            {
+                <br />
+                <h5>Cuartos de final</h5>
+                primerRegistroFG = false;
+            }
+            if (apuesta.NroPartidoNavigation.IdFase == 4 && primerRegistroFG == true)
+            {
+                <br />
+                <h5>Semifinal</h5>
+                primerRegistroFG = false;
+            }
+            if (apuesta.NroPartidoNavigation.IdFase == 5 && primerRegistroFG == true)
+            {
+                <br />
+                <h5>Final</h5>
+                primerRegistroFG = false;
+            }
             <tr>
                 <td class="col-1">
                     <input readonly class="form-control" type="text" name="NroPartido" value="@apuesta.NroPartido">
@@ -52,7 +88,7 @@
                              alt="Catar" />
                         </span>
                         <p class="col-5 flex-row">@apuesta.NroPartidoNavigation.CEquipo1Navigation.ENombre</p>
-                        <input asp-for="@apuesta.AResultadoE1" name="QGolesE1" class="form-control col-2" readonly/>
+                        <input asp-for="@apuesta.AResultadoE1" name="QGolesE1" class="form-control col-2" readonly />
                     </div>
                 </td>
 

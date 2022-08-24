@@ -26,11 +26,14 @@ namespace Mundial2022.Entidades
         public string NArbitro { get; set; }
         public string EPartido { get; set; }
         public DateTime? Fecha { get; set; }
+        public int? IdFase { get; set; }
+        public string CGrupo { get; set; }
 
         public virtual Campeonato CCampeonatoNavigation { get; set; }
         public virtual Equipo CEquipo1Navigation { get; set; }
         public virtual Equipo CEquipo2Navigation { get; set; }
         public virtual Estadio CEstadioPartNavigation { get; set; }
+        public virtual Fase IdFaseNavigation { get; set; }
         public virtual ICollection<ApuestasUsuario> ApuestasUsuarios { get; set; }
         public virtual ICollection<JugPartido> JugPartidos { get; set; }
     }
