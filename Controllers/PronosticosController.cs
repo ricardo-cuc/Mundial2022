@@ -28,8 +28,9 @@ namespace Mundial2022.Controllers
         public IActionResult Crear(int Id)
         {
             PronosticoCreacionViewModel pronostico = new PronosticoCreacionViewModel();
+            
             pronostico.UserId = Id;
-            pronostico.FasesSelect = pronostico.Fases.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
+            pronostico.FasesSelect = context.Fases.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
             pronostico.GruposSelect = pronostico.Grupos.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
             pronostico.partidos = context.Partidos.Include(e => e.CEquipo1Navigation).Include(e => e.CEquipo2Navigation);
             return View(pronostico);
@@ -50,7 +51,7 @@ namespace Mundial2022.Controllers
             {
                 apuestas.Add(new ApuestasUsuario
                 {
-                    NroApuetas = numerosPartidos.ElementAt(i),
+                    NroApuetas = numerosPartidos.ToString().ElementAt(i),
                     NroPartido = int.Parse(numerosPartidos.ElementAt(i)),
                     UCodigo = uCodigo,
                     AResultadoE1 = int.Parse(golesEquipo1Partidos.ElementAt(i)),

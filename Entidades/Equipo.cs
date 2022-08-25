@@ -18,6 +18,7 @@ namespace Mundial2022.Entidades
         public string CEquipo { get; set; }
         public string NEquipo { get; set; }
         public string ENombre { get; set; }
+        public string Banderas { get; set; }
         public string UrlBandera { get; set; }
 
         public virtual ICollection<EquiposCampeonato> EquiposCampeonatos { get; set; }

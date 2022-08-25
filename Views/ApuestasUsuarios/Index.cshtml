@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Mundial2022.Entidades.ApuestasUsuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ATipoResultado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AResultadoE1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.APuntosCanjeados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AResultadoE2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NroPartidoNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UCodigoNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ATipoResultado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AResultadoE1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.APuntosCanjeados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AResultadoE2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroPartidoNavigation.NroPartido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UCodigoNavigation.UCodigo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
